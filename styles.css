@@ -1,0 +1,511 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+/* Container principal */
+.container {
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    max-width: none;
+}
+
+/* Cabeçalho */
+header {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode header {
+    background: #2d2d2d;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+header h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Controles */
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+#fileInput {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode #fileInput {
+    background: #3d3d3d;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+button {
+    padding: 8px 16px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+button:disabled {
+    background: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+body.dark-mode button:disabled {
+    background: #555;
+    border-color: #555;
+}
+
+#darkModeToggle {
+    background: #6c757d;
+    border-color: #6c757d;
+    font-size: 16px;
+    padding: 8px 12px;
+}
+
+#darkModeToggle:hover {
+    background: #5a6268;
+}
+
+#pageInfo {
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode #pageInfo {
+    background: #3d3d3d;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+/* Container do PDF - Estilo premium */
+#pdfContainer {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 16px;
+    box-shadow: 
+        0 20px 60px rgba(0,0,0,0.08),
+        0 8px 25px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+    padding: 50px;
+    text-align: center;
+    min-height: 700px;
+    overflow: auto;
+    width: 100%;
+    max-width: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+#pdfContainer::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #667eea, #764ba2, #667eea, #764ba2);
+    background-size: 400% 400%;
+    border-radius: 18px;
+    z-index: -1;
+    animation: gradientShift 8s ease infinite;
+    opacity: 0.1;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+body.dark-mode #pdfContainer {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    box-shadow: 
+        0 20px 60px rgba(0,0,0,0.4),
+        0 8px 25px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+body.dark-mode #pdfContainer::before {
+    background: linear-gradient(45deg, #4a90e2, #667eea, #4a90e2, #667eea);
+    background-size: 400% 400%;
+    opacity: 0.15;
+}
+
+#pdfContainer:empty::before {
+    content: "Selecione um arquivo PDF para visualizar";
+    color: #666;
+    font-style: italic;
+    display: block;
+    margin-top: 200px;
+}
+
+body.dark-mode #pdfContainer:empty::before {
+    color: #999;
+}
+
+/* Página do PDF - Container personalizado */
+.text-page {
+    margin: 0 auto;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.08),
+        0 2px 8px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.text-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { background-position: 200% 0; }
+    50% { background-position: -200% 0; }
+}
+
+body.dark-mode .text-page {
+    background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.4),
+        0 2px 8px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+body.dark-mode .text-page::before {
+    background: linear-gradient(90deg, #4a90e2, #667eea, #4a90e2);
+    background-size: 200% 100%;
+}
+
+/* Container de texto personalizado */
+.text-item {
+    position: relative;
+    transition: all 0.2s ease;
+    border-radius: 2px;
+    padding: 1px 2px;
+}
+
+.text-item:hover {
+    background: rgba(102, 126, 234, 0.08);
+    transform: translateY(-0.5px);
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.1);
+}
+
+body.dark-mode .text-item:hover {
+    background: rgba(74, 144, 226, 0.15);
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.2);
+}
+
+/* Texto selecionável com estilo personalizado - Melhor visibilidade */
+.text-item::selection {
+    background: #007bff;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .text-item::selection {
+    background: #ffd700;
+    color: #000;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+/* Texto no modo dark */
+body.dark-mode .text-item {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Efeito de papel no modo claro */
+.text-page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120,119,198,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,119,198,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120,219,255,0.03) 0%, transparent 50%);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+body.dark-mode .text-page::after {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(74,144,226,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(102,126,234,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(118,75,162,0.05) 0%, transparent 50%);
+    opacity: 0.3;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #fileInput, button {
+        width: 100%;
+        max-width: 300px;
+    }
+}/*
+ Containers personalizados avançados */
+.text-page-wrapper {
+    position: relative;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.text-page-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: conic-gradient(from 0deg at 50% 50%, #667eea, #764ba2, #667eea);
+    border-radius: 16px;
+    padding: 2px;
+    z-index: -2;
+    opacity: 0.3;
+}
+
+/* Indicador de página personalizado */
+.page-indicator {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(102, 126, 234, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #667eea;
+    z-index: 10;
+}
+
+body.dark-mode .page-indicator {
+    background: rgba(74, 144, 226, 0.15);
+    border-color: rgba(74, 144, 226, 0.3);
+    color: #4a90e2;
+}
+
+/* Efeito de highlight dinâmico */
+.text-item.highlighted {
+    background: linear-gradient(90deg, rgba(255, 235, 59, 0.3), rgba(255, 193, 7, 0.2));
+    animation: highlightPulse 2s ease-in-out;
+    border-radius: 3px;
+}
+
+@keyframes highlightPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* Texto com efeito de typing */
+.text-item.typing {
+    overflow: hidden;
+    border-right: 2px solid #667eea;
+    animation: typing 0.5s steps(20), blink 1s infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink {
+    0%, 50% { border-color: transparent; }
+    51%, 100% { border-color: #667eea; }
+}
+
+/* Container de linha personalizado */
+.text-line {
+    position: relative;
+    display: inline-block;
+    margin: 2px 0;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.text-line:hover {
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    transform: translateX(2px);
+    box-shadow: -3px 0 0 rgba(102, 126, 234, 0.3);
+}
+
+body.dark-mode .text-line:hover {
+    background: linear-gradient(90deg, rgba(74, 144, 226, 0.1), rgba(102, 126, 234, 0.1));
+    box-shadow: -3px 0 0 rgba(74, 144, 226, 0.5);
+}
+
+/* Efeito de partículas no fundo */
+.text-page-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+    50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+}
+
+body.dark-mode .particle {
+    background: rgba(74, 144, 226, 0.4);
+}
+
+/* Barra de progresso de leitura */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    z-index: 1000;
+    transition: width 0.3s ease;
+}
+
+/* Tooltip personalizado para texto */
+.text-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.text-tooltip.show {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+body.dark-mode .text-tooltip {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+/* Efeito de zoom suave no container */
+.text-page.zoom-in {
+    animation: zoomIn 0.5s ease-out;
+}
+
+@keyframes zoomIn {
+    from { 
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Indicador de carregamento personalizado */
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+body.dark-mode .loading-spinner {
+    border-color: rgba(74, 144, 226, 0.3);
+    border-top-color: #4a90e2;
+}
